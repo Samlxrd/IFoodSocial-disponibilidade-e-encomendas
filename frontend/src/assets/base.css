@@ -1,12 +1,20 @@
 :root {
-  /* Definir as cores aqui */
-  --color: #000;
+  --orange: #fa6a2e;
+  --white: #fafafa;
+  --black: #181818;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
 }
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: var(--black);
+  background: var(--white);
   transition:
     color 0.5s,
     background-color 0.5s;
