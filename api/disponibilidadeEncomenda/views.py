@@ -8,23 +8,25 @@ from rest_framework import status
 
 class DisponibilidadeViewSet(ModelViewSet):
     queryset = Disponibilidade.objects.all()
-    serializer_class = DisponibilidadeSerializer
+    serializer_class = [DisponibilidadeSerializer, DisponibilidadeViewSerializer]
     
     @api_view(['GET'])
     def list_disponibilidade(request):
         disponibilidade = Disponibilidade.objects.all()
-        serializer = DisponibilidadeSerializer(disponibilidade, many=True)
+        serializer = DisponibilidadeViewSerializer(disponibilidade, many=True)
         return Response(serializer.data)
     
     @api_view(['GET'])
     def get_disponibilidade(request, pk):
         disponibilidade = Disponibilidade.objects.get(pk=pk)
-        serializer = DisponibilidadeSerializer(disponibilidade)
+        serializer = DisponibilidadeViewSerializer(disponibilidade)
         return Response(serializer.data)
     
     @api_view(['POST'])
     def post_disponibilidade(request):
+        cod_localidade = request.data.get('cod_localidade')
         serializer = DisponibilidadeSerializer(data=request.data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -83,3 +85,17 @@ class DisponExcecaoViewSet(ModelViewSet):
         disponibilidade_excecao = DisponExcecao.objects.get(pk=pk)
         disponibilidade_excecao.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class EmpreendimentoViewSet(ModelViewSet):
+    @api_view(['GET'])
+    def list_empreendimento(request):
+        empreendimento = Empreendimento.objects.all()
+        serializer = EmpreendimentoSerializer(empreendimento, many=True)
+        return Response(serializer.data)
+
+class LocalidadeViewSet(ModelViewSet):
+    @api_view(['GET'])
+    def list_localidade(request):
+        localidade = Localidade.objects.all()
+        serializer = LocalidadeSerializer(localidade, many=True)
+        return Response(serializer.data)

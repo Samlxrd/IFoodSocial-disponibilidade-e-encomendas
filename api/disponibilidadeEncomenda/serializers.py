@@ -37,24 +37,45 @@ class ClienteSerializer(serializers.ModelSerializer):
         model = Cliente
         fields = '__all__'
 
-class DisponibilidadeSerializer(serializers.ModelSerializer):
-    hora_fim = serializers.DateTimeField(format="%m/%Y %H:%M", allow_null=True, required=False)
-    hora_inicio = serializers.DateTimeField(format="%m/%Y %H:%M", allow_null=True, required=False)
+class EmpreendimentoSerializer(serializers.ModelSerializer):
+    class Meta:
+        db_table = 'EMPREENDIMENTO'
+        model = Empreendimento
+        fields = '__all__'
+
+class LocalidadeSerializer(serializers.ModelSerializer):
+    cod_bairro = BairroSerializer(read_only=True)
+    cod_empreedimento = EmpreendimentoSerializer(read_only=True)
+
+    class Meta:
+        db_table = 'LOCALIDADE'
+        model = Localidade
+        fields = '__all__'
+
+class DisponibilidadeViewSerializer(serializers.ModelSerializer):
+    hora_fim = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
+    hora_inicio = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
+    cod_localidade = LocalidadeSerializer(read_only=True)
+    cod_empreedimento = EmpreendimentoSerializer(read_only=True)
+    
     class Meta:
         db_table = 'DISPONIBILIDADE'
         model = Disponibilidade
         fields = '__all__'
 
+class DisponibilidadeSerializer(serializers.ModelSerializer):
+    hora_fim = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
+    hora_inicio = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
+    
+    class Meta:
+        db_table = 'DISPONIBILIDADE'
+        model = Disponibilidade
+        fields = '__all__'
+        
 class DisponExcecaoSerializer(serializers.ModelSerializer):
     class Meta:
         db_table = 'DISPON_EXCECAO'
         model = DisponExcecao
-        fields = '__all__'
-
-class EmpreendimentoSerializer(serializers.ModelSerializer):
-    class Meta:
-        db_table = 'EMPREENDIMENTO'
-        model = Empreendimento
         fields = '__all__'
 
 class EmprendFuncionarioSerializer(serializers.ModelSerializer):
@@ -91,12 +112,6 @@ class ItemPedidoSerializer(serializers.ModelSerializer):
     class Meta:
         db_table = 'ITEM_PEDIDO'
         model = ItemPedido
-        fields = '__all__'
-
-class LocalidadeSerializer(serializers.ModelSerializer):
-    class Meta:
-        db_table = 'LOCALIDADE'
-        model = Localidade
         fields = '__all__'
 
 class PedidoSerializer(serializers.ModelSerializer):
