@@ -53,8 +53,6 @@ class LocalidadeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class DisponibilidadeViewSerializer(serializers.ModelSerializer):
-    #hora_fim = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
-    #hora_inicio = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
     cod_localidade = LocalidadeSerializer(read_only=True)
     cod_empreedimento = EmpreendimentoSerializer(read_only=True)
     
@@ -72,6 +70,14 @@ class DisponibilidadeSerializer(serializers.ModelSerializer):
         model = Disponibilidade
         fields = '__all__'
         
+class DisponExcecaoViewSerializer(serializers.ModelSerializer):
+    cod_localidade = LocalidadeSerializer(read_only=True)
+    cod_empreedimento = EmpreendimentoSerializer(read_only=True)
+    class Meta:
+        db_table = 'DISPON_EXCECAO'
+        model = DisponExcecao
+        fields = '__all__'
+
 class DisponExcecaoSerializer(serializers.ModelSerializer):
     class Meta:
         db_table = 'DISPON_EXCECAO'

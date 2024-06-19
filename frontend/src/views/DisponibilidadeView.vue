@@ -1,6 +1,7 @@
 <template>
   <main>
     <h2>Disponibilidade</h2>
+    <button class="navigate" @click="handleClick">Visualizar Exceções</button>
     <button @click="openModal">Registrar Disponibilidade</button>
     <ModalRegistro :isVisible="isModalVisible" @update:isVisible="isModalVisible = $event" class="modal"/> 
     <DisponibilidadeList />
@@ -10,21 +11,19 @@
 <script setup>
 import DisponibilidadeList from '@/components/DisponibilidadeList.vue';
 import ModalRegistro from '@/components/ModalRegistro.vue';
+import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-/* 
-const form = ref({
-    num_dia_semana: '',
-    hora_inicio: '',
-    hora_fim: '',
-    localidade: '',
-    empreendimento: ''
-});*/
 
 const isModalVisible = ref(false);
+const router = useRouter();
 
 function openModal() {
     isModalVisible.value = true;
-} 
+}
+
+function handleClick() {
+    router.push({ name: 'disponibilidadeExcecao' });
+}
 
 </script>
 
@@ -46,28 +45,13 @@ main button {
     transform: translateY(5vh);
 }
 
+main button.navigate {
+    padding: 2vh;
+    width: 30%;
+}
+
 main button:hover {
     background-color: var(--orange-hover);
-}
-
-.modal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-}
-
-.modal form {
-    background-color: var(--white);
-    padding: 5vh;
-    border-radius: 2vh;
 }
 
 </style>

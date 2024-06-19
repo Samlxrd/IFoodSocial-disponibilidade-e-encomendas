@@ -10,7 +10,6 @@ const api = axios.create({
 export async function getDisponibilidade() {
     try {
         const response = await api.get('/getDisponibilidade');
-        console.log('Dados ', response)
         return response.data;
     } catch (err) {
         console.log('Falha ao buscar disponibilidade: ', err);
@@ -20,7 +19,6 @@ export async function getDisponibilidade() {
 export async function getLocalidade() {
     try {
         const response = await api.get('/getLocalidade');
-        console.log('Dados ', response)
         return response.data;
     } catch (err) {
         console.log('Falha ao buscar localidade: ', err);
@@ -30,7 +28,6 @@ export async function getLocalidade() {
 export async function getEmpreendimento() {
     try {
         const response = await api.get('/getEmpreendimento');
-        console.log('Dados ', response)
         return response.data;
     } catch (err) {
         console.log('Falha ao buscar empreendimento: ', err);
@@ -39,7 +36,6 @@ export async function getEmpreendimento() {
 
 export async function postDisponibilidade(dados) {
     try {
-        console.log('Dados enviados:', dados);
         const response = await api.post('/postDisponibilidade', dados);
         return response;
     } catch (err) {
@@ -49,10 +45,54 @@ export async function postDisponibilidade(dados) {
 
 export async function patchDisponibilidade(dados) {
     try {
-        console.log('Dados enviados:', dados.cod_disponibilidade, dados);
         const response = await api.patch(`/patchDisponibilidade/${dados.cod_disponibilidade}/`, dados);
         return response;
     } catch (err) {
         console.log('Falha ao atualizar disponibilidade: ', err);
+    }
+}
+
+export async function deleteDisponibilidade(id) {
+    try {
+        const response = await api.delete(`/deleteDisponibilidade/${id}/`);
+        return response;
+    } catch (err) {
+        console.log('Falha ao deletar disponibilidade: ', err);
+    }
+}
+
+export async function getDisponibilidadeExcecao() {
+    try {
+        const response = await api.get('/getDisponExcecao');
+        return response.data;
+    } catch (err) {
+        console.log('Falha ao buscar disponibilidade exceção: ', err);
+    }
+}
+
+export async function postDisponibilidadeExcecao(dados) {
+    try {
+        const response = await api.post('/postDisponExcecao', dados);
+        return response;
+    } catch (err) {
+        console.log('Falha ao enviar exceção de disponibilidade: ', err);
+    }
+}
+
+export async function patchDisponibilidadeExcecao(dados) {
+    try {
+        const response = await api.patch(`/patchDisponExcecao/${dados.cod_dispon_excecao}/`, dados);
+        return response;
+    } catch (err) {
+        console.log('Falha ao atualizar disponibilidade: ', err);
+    }
+}
+
+export async function deleteDisponibilidadeExcecao(id) {
+    try {
+        const response = await api.delete(`/deleteDisponExcecao/${id}/`);
+        return response;
+    } catch (err) {
+        console.log('Falha ao deletar exceção de disponibilidade: ', err);
     }
 }

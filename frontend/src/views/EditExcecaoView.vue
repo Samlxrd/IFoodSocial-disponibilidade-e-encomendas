@@ -3,9 +3,12 @@
         <label for="empreendimento">Empreendimento</label>
         <input id="empreendimento" v-model="formData.cod_empreedimento.dcr_nome_fantasia" placeholder="Nome Fantasia" disabled>
         
-        <label for="num_dia_semana">Dias na Semana</label>
-        <input type="number" id="num_dia_semana" v-model="formData.num_dia_semana" placeholder="Dias na Semana" min="1" max="7" required>
-        
+        <label for="tip_excecao">Tipo Exceção:</label>
+        <input type="text" id="tip_excecao" v-model="formData.tip_excecao" maxlength="1" required>
+
+        <label for="data_excecao">Data da Exceção:</label>
+        <input type="datetime-local" id="data_excecao" v-model="formData.data_excecao" required>
+
         <label for="hora-inicio">Hora de Início</label>
         <input type="datetime-local" id="hora_inicio" v-model="formData.hora_inicio" placeholder="Hora de Início">
         
@@ -25,13 +28,14 @@
 
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
-import { patchDisponibilidade } from '@/services/api';
+import { patchDisponibilidadeExcecao } from '@/services/api';
 
 const route = useRoute();
 const router = useRouter();
 
 const formData = route.query.data ? JSON.parse(decodeURIComponent(route.query.data)) : null;
 if (formData) {
+    formData.data_excecao = formatDateTimeLocal(formData.data_excecao);
     formData.hora_inicio = formatDateTimeLocal(formData.hora_inicio);
     formData.hora_fim = formatDateTimeLocal(formData.hora_fim);
 }
@@ -48,15 +52,16 @@ console.log('Dados do item: ', formData);
 async function saveChanges() {
     try {
         const data = {
-            cod_disponibilidade: formData.cod_disponibilidade,
-            num_dia_semana: formData.num_dia_semana,
+            cod_dispon_excecao: formData.cod_dispon_excecao,
+            tip_excecao: formData.tip_excecao,
+            data_excecao: formData.data_excecao,
             hora_inicio: formData.hora_inicio,
             hora_fim: formData.hora_fim,
             cod_localidade: formData.cod_localidade.cod_localidade,
             cod_empreedimento: formData.cod_empreedimento.cod_empreedimento
         }
 
-        const response = await patchDisponibilidade(data);
+        const response = await patchDisponibilidadeExcecao(data);
         if (response.status === 200) {
             router.back();
         }

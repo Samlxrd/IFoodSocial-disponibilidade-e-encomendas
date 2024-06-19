@@ -1,49 +1,54 @@
+<!-- ModalComponent.vue -->
 <template>
-  <div class="modal" v-if="isVisible">
-    <div class="modal-content">
-      <form @submit.prevent="handleSubmit">
-        <div>
-          <label for="num_dia_semana">Número de Dias da Semana:</label>
-          <input type="number" id="num_dia_semana" v-model="form.num_dia_semana" min="1" max="7" required>
-        </div>
-        <div>
-          <label for="hora_inicio">Hora de Início:</label>
-          <input type="datetime-local" id="hora_inicio" v-model="form.hora_inicio" required>
-        </div>
-        <div>
-          <label for="hora_fim">Hora de Fim:</label>
-          <input type="datetime-local" id="hora_fim" v-model="form.hora_fim" required>
-        </div>
-        <div>
-          <label for="localidade">Localidade:</label>
-          <select id="localidade" v-model="form.cod_localidade" required>
-            <option v-for="localidade in localidades" :key="localidade.cod_localidade"
-              :value="localidade.cod_localidade">
-              {{ localidade.dcr_localidade }}
-            </option>
-          </select>
-        </div>
-        <div>
-          <label for="empreendimento">Empreendimento:</label>
-          <select id="empreendimento" v-model="form.cod_empreedimento" required>
-            <option v-for="empreendimento in empreendimentos" :key="empreendimento.cod_empreedimento"
-              :value="empreendimento.cod_empreedimento">
-              {{ empreendimento.dcr_empreendimento }}
-            </option>
-          </select>
-        </div>
+    <div class="modal" v-if="isVisible">
+        <div class="modal-content">
+            <form @submit.prevent="handleSubmit">
+                <div>
+                    <label for="tip_excecao">Tipo Exceção:</label>
+                    <input type="text" id="tip_excecao" v-model="form.tip_excecao" maxlength="1" required>
+                </div>
+                <div>
+                    <label for="data_excecao">Data da Exceção:</label>
+                    <input type="datetime-local" id="data_excecao" v-model="form.data_excecao" required>
+                </div>
+                <div>
+                    <label for="hora_inicio">Hora de Início:</label>
+                    <input type="datetime-local" id="hora_inicio" v-model="form.hora_inicio" required>
+                </div>
+                <div>
+                    <label for="hora_fim">Hora de Fim:</label>
+                    <input type="datetime-local" id="hora_fim" v-model="form.hora_fim" required>
+                </div>
+                <div>
+                    <label for="localidade">Localidade:</label>
+                    <select id="localidade" v-model="form.cod_localidade" required>
+                        <option v-for="localidade in localidades" :key="localidade.cod_localidade"
+                            :value="localidade.cod_localidade">
+                            {{ localidade.dcr_localidade }}
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label for="empreendimento">Empreendimento:</label>
+                    <select id="empreendimento" v-model="form.cod_empreedimento" required>
+                        <option v-for="empreendimento in empreendimentos" :key="empreendimento.cod_empreedimento"
+                            :value="empreendimento.cod_empreedimento">
+                            {{ empreendimento.dcr_empreendimento }}
+                        </option>
+                    </select>
+                </div>
 
-        <div class="btns">
-          <button>Registrar</button>
-          <button @click="closeModal">Fechar</button>
+                <div class="btns">
+                    <button>Registrar</button>
+                    <button @click="closeModal">Fechar</button>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
 </template>
   
   <script>
-import { getLocalidade, getEmpreendimento, postDisponibilidade, getDisponibilidade } from '@/services/api';
+import { getLocalidade, getEmpreendimento, getDisponibilidadeExcecao, postDisponibilidadeExcecao } from '@/services/api';
 import { onMounted } from 'vue';
 import { reactive } from 'vue';
 
@@ -51,7 +56,8 @@ import { reactive } from 'vue';
     data() {
       return {
         form: {
-          num_dia_semana: '',
+          tip_excecao: '',
+          data_excecao: '',
           hora_inicio: '',
           hora_fim: '',
           cod_localidade: '',
@@ -69,7 +75,7 @@ import { reactive } from 'vue';
       async handleSubmit() {
         try {
           console.log('Formulario: ', this.form);
-          const response = await postDisponibilidade(this.form);
+          const response = await postDisponibilidadeExcecao(this.form);
           console.log('Resposta: ', response)
           if (response.status === 201)
             this.closeModal();

@@ -43,7 +43,7 @@ class DisponibilidadeViewSet(ModelViewSet):
     
     @api_view(['DELETE'])
     def delete_disponibilidade(request, id):
-        disponibilidade = Disponibilidade.objects.get(id=id)
+        disponibilidade = Disponibilidade.objects.get(cod_disponibilidade=id)
         disponibilidade.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -54,13 +54,13 @@ class DisponExcecaoViewSet(ModelViewSet):
     @api_view(['GET'])
     def list_disponibilidade_excecao(request):
         disponibilidade_excecao = DisponExcecao.objects.all()
-        serializer = DisponExcecaoSerializer(disponibilidade_excecao, many=True)
+        serializer = DisponExcecaoViewSerializer(disponibilidade_excecao, many=True)
         return Response(serializer.data)
     
     @api_view(['GET'])
     def get_disponibilidade_excecao(request, id):
-        disponibilidade_excecao = DisponExcecao.objects.get(id=id)
-        serializer = DisponExcecaoSerializer(disponibilidade_excecao)
+        disponibilidade_excecao = DisponExcecao.objects.get(cod_dispon_excecao=id)
+        serializer = DisponExcecaoViewSerializer(disponibilidade_excecao)
         return Response(serializer.data)
     
     @api_view(['POST'])
@@ -73,7 +73,7 @@ class DisponExcecaoViewSet(ModelViewSet):
     
     @api_view(['PATCH'])
     def patch_disponibilidade_excecao(request, id):
-        disponibilidade_excecao = DisponExcecao.objects.get(id=id)
+        disponibilidade_excecao = DisponExcecao.objects.get(cod_dispon_excecao=id)
         serializer = DisponExcecaoSerializer(disponibilidade_excecao, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -82,7 +82,7 @@ class DisponExcecaoViewSet(ModelViewSet):
     
     @api_view(['DELETE'])
     def delete_disponibilidade_excecao(request, id):
-        disponibilidade_excecao = DisponExcecao.objects.get(id=id)
+        disponibilidade_excecao = DisponExcecao.objects.get(cod_dispon_excecao=id)
         disponibilidade_excecao.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

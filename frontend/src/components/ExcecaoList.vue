@@ -1,15 +1,16 @@
 <template>
     <section class="content">
-        <section class="disp-list">
-            <ul v-for="(d, index) in dispList" :key="index">
-                <li>Empreendimento: {{ d.cod_empreedimento.dcr_nome_fantasia }}</li>
-                <li>Dias na semana: {{ d.num_dia_semana }}</li>
-                <li>Abre: {{ d.hora_inicio }}</li>
-                <li>Fecha: {{ d.hora_fim }}</li>
-                <li>Bairro: {{ d.cod_localidade.cod_bairro.dcr_bairro }}</li>
-                <li>Local: {{ d.cod_localidade.dcr_localidade }}</li>
+        <section class="excecao-list">
+            <ul v-for="(e, index) in excecaoList" :key="index">
+                <li>Empreendimento: {{ e.cod_empreedimento.dcr_nome_fantasia }}</li>
+                <li>Data Exceção: {{ e.data_excecao }}</li>
+                <li>Tipo Exceção: {{ e.tip_excecao }}</li>
+                <li>Abre: {{ e.hora_inicio }}</li>
+                <li>Fecha: {{ e.hora_fim }}</li>
+                <li>Bairro: {{ e.cod_localidade.cod_bairro.dcr_bairro }}</li>
+                <li>Local: {{ e.cod_localidade.dcr_localidade }}</li>
                 <section class="btns">
-                    <button @click="handleChange(d)">Editar</button>
+                    <button @click="handleChange(e)">Editar</button>
                     <button @click="handleDelete(index+1)">Excluir</button>
                 </section>
             </ul>
@@ -18,27 +19,27 @@
 </template>
 
 <script setup>
-import { getDisponibilidade, deleteDisponibilidade } from '@/services/api';
+import { getDisponibilidadeExcecao, deleteDisponibilidadeExcecao } from '@/services/api';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
-const dispList = reactive([]);
+const excecaoList = reactive([]);
 const router = useRouter();
 
 async function getData() {
-    const data = await getDisponibilidade();
-    dispList.splice(0, dispList.length, ...data);
+    const data = await getDisponibilidadeExcecao();
+    excecaoList.splice(0, excecaoList.length, ...data);
+    console.log('Exceções: ', excecaoList);
 }
 
-function handleChange(d) {
-    const dataString = JSON.stringify(d);
-    router.push({ name: 'EditDisponibilidade', query: { data: encodeURIComponent(dataString) } });
+function handleChange(e) {
+    const dataString = JSON.stringify(e);
+    router.push({ name: 'EditDisponExcecao', query: { data: encodeURIComponent(dataString) } });
 }
 
 async function handleDelete(id) {
-    console.log('id', id);
     if (confirm('Tem certeza que deseja excluir este item?')) {
-        const response = await deleteDisponibilidade(id);
+        const response = await deleteDisponibilidadeExcecao(id);
         console.log('Response: ', response.status)
         if (response.status === 204) {
             getData();
@@ -56,7 +57,7 @@ getData();
     margin-top: 10vh;
 }
 
-.disp-list {
+.excecao-list {
     margin-top: 8vh;
     display: flex;
     flex-direction: row;
