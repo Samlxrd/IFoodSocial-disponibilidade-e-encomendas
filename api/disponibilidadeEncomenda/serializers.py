@@ -53,8 +53,8 @@ class LocalidadeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class DisponibilidadeViewSerializer(serializers.ModelSerializer):
-    hora_fim = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
-    hora_inicio = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
+    #hora_fim = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
+    #hora_inicio = serializers.DateTimeField(format="%H:%M", allow_null=True, required=False)
     cod_localidade = LocalidadeSerializer(read_only=True)
     cod_empreedimento = EmpreendimentoSerializer(read_only=True)
     

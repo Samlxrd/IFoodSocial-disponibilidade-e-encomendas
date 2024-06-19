@@ -17,8 +17,8 @@ class DisponibilidadeViewSet(ModelViewSet):
         return Response(serializer.data)
     
     @api_view(['GET'])
-    def get_disponibilidade(request, pk):
-        disponibilidade = Disponibilidade.objects.get(pk=pk)
+    def get_disponibilidade(request, id):
+        disponibilidade = Disponibilidade.objects.get(cod_disponibilidade=id)
         serializer = DisponibilidadeViewSerializer(disponibilidade)
         return Response(serializer.data)
     
@@ -33,8 +33,8 @@ class DisponibilidadeViewSet(ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @api_view(['PATCH'])
-    def patch_disponibilidade(request, pk):
-        disponibilidade = Disponibilidade.objects.get(pk=pk)
+    def patch_disponibilidade(request, id):
+        disponibilidade = Disponibilidade.objects.get(cod_disponibilidade=id)
         serializer = DisponibilidadeSerializer(disponibilidade, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -42,8 +42,8 @@ class DisponibilidadeViewSet(ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @api_view(['DELETE'])
-    def delete_disponibilidade(request, pk):
-        disponibilidade = Disponibilidade.objects.get(pk=pk)
+    def delete_disponibilidade(request, id):
+        disponibilidade = Disponibilidade.objects.get(id=id)
         disponibilidade.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -58,8 +58,8 @@ class DisponExcecaoViewSet(ModelViewSet):
         return Response(serializer.data)
     
     @api_view(['GET'])
-    def get_disponibilidade_excecao(request, pk):
-        disponibilidade_excecao = DisponExcecao.objects.get(pk=pk)
+    def get_disponibilidade_excecao(request, id):
+        disponibilidade_excecao = DisponExcecao.objects.get(id=id)
         serializer = DisponExcecaoSerializer(disponibilidade_excecao)
         return Response(serializer.data)
     
@@ -72,8 +72,8 @@ class DisponExcecaoViewSet(ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @api_view(['PATCH'])
-    def patch_disponibilidade_excecao(request, pk):
-        disponibilidade_excecao = DisponExcecao.objects.get(pk=pk)
+    def patch_disponibilidade_excecao(request, id):
+        disponibilidade_excecao = DisponExcecao.objects.get(id=id)
         serializer = DisponExcecaoSerializer(disponibilidade_excecao, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -81,8 +81,8 @@ class DisponExcecaoViewSet(ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @api_view(['DELETE'])
-    def delete_disponibilidade_excecao(request, pk):
-        disponibilidade_excecao = DisponExcecao.objects.get(pk=pk)
+    def delete_disponibilidade_excecao(request, id):
+        disponibilidade_excecao = DisponExcecao.objects.get(id=id)
         disponibilidade_excecao.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
