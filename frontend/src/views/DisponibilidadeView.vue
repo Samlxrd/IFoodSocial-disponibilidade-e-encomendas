@@ -46,6 +46,10 @@ main button {
     transform: translateY(5vh);
 }
 
+main button:hover {
+    background-color: var(--orange-hover);
+}
+
 .modal {
     display: flex;
     flex-direction: column;

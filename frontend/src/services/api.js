@@ -46,3 +46,13 @@ export async function postDisponibilidade(dados) {
         console.log('Falha ao enviar disponibilidade: ', err);
     }
 }
+
+export async function patchDisponibilidade(dados) {
+    try {
+        console.log('Dados enviados:', dados.cod_disponibilidade, dados);
+        const response = await api.patch(`/patchDisponibilidade/${dados.cod_disponibilidade}/`, dados);
+        return response;
+    } catch (err) {
+        console.log('Falha ao atualizar disponibilidade: ', err);
+    }
+}

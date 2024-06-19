@@ -8,7 +8,6 @@ import { RouterLink } from 'vue-router';
     <h2><a href="/">IFoodSocial</a></h2>
     <nav>
         <RouterLink to="/" class="nav-item">Home</RouterLink>
-        <RouterLink to="/other" class="nav-item">Outro</RouterLink>
         <RouterLink to="/disponibilidade" class="nav-item">Disponibilidade</RouterLink>
     </nav>
   </header>

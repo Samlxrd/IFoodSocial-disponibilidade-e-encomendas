@@ -8,6 +8,10 @@
                 <li>Fecha: {{ d.hora_fim }}</li>
                 <li>Bairro: {{ d.cod_localidade.cod_bairro.dcr_bairro }}</li>
                 <li>Local: {{ d.cod_localidade.dcr_localidade }}</li>
+                <section class="btns">
+                    <button @click="handleChange(d)">Editar</button>
+                    <button @click="handleDelete(d)">Excluir</button>
+                </section>
             </ul>
         </section>
     </section>
@@ -16,12 +20,23 @@
 <script setup>
 import { getDisponibilidade } from '@/services/api';
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
 const dispList = reactive([]);
+const router = useRouter();
 
 async function getData() {
     const data = await getDisponibilidade();
     dispList.splice(0, dispList.length, ...data);
+}
+
+function handleChange(d) {
+    const dataString = JSON.stringify(d);
+    router.push({ name: 'EditDisponibilidade', query: { data: encodeURIComponent(dataString) } });
+}
+
+async function handleDelete() {
+    console.log('Excluir');
 }
 
 getData();
@@ -53,10 +68,32 @@ ul {
     padding: 2vh;
     background-color: #f5f5f5;
     border-radius: 2vh;
+    border: 1px solid var(--orange);
 }
 
 ul li {
     list-style-type: none;
-    
 }
+
+ul .btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 2vh;
+    margin-top: 2vh;
+}
+
+ul .btns button {
+    padding: 1vh 2vh;
+    background-color: var(--orange);
+    color: var(--white);
+    border: none;
+    border-radius: 2vh;
+    cursor: pointer;
+}
+
+ul .btns button:hover {
+    background-color: var(--orange-hover);
+}
+
 </style>

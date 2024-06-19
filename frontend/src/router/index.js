@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import OtherView from '../views/OtherView.vue'
 import DisponibilidadeView from '../views/DisponibilidadeView.vue'
+import EditDisponibilidadeView from '../views/EditDisponibilidadeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,15 +12,16 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/other',
-      name: 'other',
-      component: OtherView
-    },
-    {
       path: '/disponibilidade',
       name: 'disponibilidade',
       component: DisponibilidadeView
     },
+    {
+      path: '/edit-disponibilidade/',
+      name: 'EditDisponibilidade',
+      component: EditDisponibilidadeView,
+      props: true
+    }
   ]
 })
 
