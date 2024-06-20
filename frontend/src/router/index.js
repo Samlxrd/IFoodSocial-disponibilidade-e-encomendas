@@ -4,6 +4,7 @@ import DisponibilidadeView from '../views/DisponibilidadeView.vue'
 import DisponibilidadeExcecaoView from '../views/ExcecaoView.vue'
 import EditDisponibilidadeView from '../views/EditDisponibilidadeView.vue'
 import EditExcecaoView from '../views/EditExcecaoView.vue'
+import EntregaView from '../views/EntregaView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +34,13 @@ const router = createRouter({
       path: '/edit-dispon-excecao/',
       name: 'EditDisponExcecao',
       component: EditExcecaoView,
+    },
+    {
+      path: '/entrega',
+      name: 'Entrega',
+      component: EntregaView,
     }
+
   ]
 })
 

@@ -7,6 +7,24 @@ const api = axios.create({
     }
 });
 
+export async function getPedidos() {
+    try {
+      const response = await api.get('/getPedido');
+      return response.data;
+    } catch (err) {
+      console.error('Falha ao buscar pedidos: ', err);
+    }
+  }
+  
+  export async function registrarEntrega(dadosEntrega) {
+    try {
+      const response = await api.post('/postEntrega', dadosEntrega);
+      return response.data;
+    } catch (err) {
+      console.error('Falha ao registrar entrega: ', err);
+    }
+  }
+
 export async function getDisponibilidade() {
     try {
         const response = await api.get('/getDisponibilidade');

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import DisponibilidadeViewSet, DisponExcecaoViewSet, EmpreendimentoViewSet, LocalidadeViewSet
+from .views import DisponibilidadeViewSet, DisponExcecaoViewSet, EmpreendimentoViewSet, LocalidadeViewSet, EntregaViewSet, PedidoViewSet
 
 urlpatterns = [
     path('getDisponibilidade', DisponibilidadeViewSet.list_disponibilidade, name='getDisponibilidade'),
@@ -16,5 +16,8 @@ urlpatterns = [
     path('deleteDisponExcecao/<int:id>/', DisponExcecaoViewSet.delete_disponibilidade_excecao, name='deleteDisponExcecao'),
 
     path('getEmpreendimento', EmpreendimentoViewSet.list_empreendimento, name='getEmpreendimento'),
-    path('getLocalidade', LocalidadeViewSet.list_localidade, name='getLocalidade')
+    path('getLocalidade', LocalidadeViewSet.list_localidade, name='getLocalidade'),
+
+    path('postEntrega', EntregaViewSet.post_entrega, name = 'postEntrega'),
+    path('getPedido', PedidoViewSet.list_pedido, name = 'getPedido')
 ]

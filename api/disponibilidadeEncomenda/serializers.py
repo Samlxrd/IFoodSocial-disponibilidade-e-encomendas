@@ -149,3 +149,8 @@ class SecaoProdutoSerializer(serializers.ModelSerializer):
         db_table = 'SECAO_PRODUTO'
         model = SecaoProduto
         fields = '__all__'
+
+class EntregaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Entrega
+        fields = '__all__'        

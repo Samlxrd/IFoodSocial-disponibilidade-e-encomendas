@@ -80,7 +80,7 @@ class Pedido(models.Model):
     tip_pedido = models.CharField(max_length=1, null=True, blank=True)
     data_pedido = models.DateTimeField(null=True, blank=True)
     vlr_pedido = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
-    tip_status = models.CharField(max_length=1, null=True, blank=True)
+    #tip_status = models.CharField(max_length=1, null=True, blank=True)
     cod_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, db_column='cod_cliente')
     cod_forma_pagto = models.ForeignKey(FormaPagto, on_delete=models.CASCADE, null=True, blank=True, db_column='cod_forma_pagto')
     dcr_dados_pagto = models.CharField(max_length=200, null=True, blank=True)

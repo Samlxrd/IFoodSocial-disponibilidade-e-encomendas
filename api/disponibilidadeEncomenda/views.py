@@ -99,3 +99,23 @@ class LocalidadeViewSet(ModelViewSet):
         localidade = Localidade.objects.all()
         serializer = LocalidadeSerializer(localidade, many=True)
         return Response(serializer.data)
+    
+   
+class EntregaViewSet(ModelViewSet):
+    queryset = Entrega.objects.all()
+    
+    @api_view(['POST'])
+    def post_entrega(request):
+        serializer = EntregaSerializer(data=request.data)
+        print(request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PedidoViewSet(ModelViewSet):
+    @api_view(['GET'])
+    def list_pedido(request):
+        pedido = Pedido.objects.all()
+        serializer = PedidoSerializer(pedido, many=True)
+        return Response(serializer.data)
