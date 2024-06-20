@@ -132,9 +132,10 @@ export default {
 
 .pedido-item {
   cursor: pointer;
-  margin: 10px 0;
+  margin: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 2px solid orange;
+  border-radius: 8px;
 }
 
 .pedido-item span {
@@ -143,9 +144,40 @@ export default {
 
 .pedido-detalhes {
   margin-top: 20px;
+  padding: 20px;
+  border: 2px solid orange;
+  border-radius: 5px;
 }
 
-.pedido-detalhes form div {
+.form-group {
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+div{
+  margin: 5px;
+}
+
+label {
+  margin: 10px;
+}
+
+input {
+  border-radius: 2px;
+}
+
+button {
+  background-color: orange;
+  color: white;
+  justify-content: space-between;
+  padding: 5px 15px;
+  margin: 15px;
+  border-radius: 8px;
+  border-color: orange;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: darkorange;
 }
 </style>
