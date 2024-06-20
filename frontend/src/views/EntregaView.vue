@@ -9,12 +9,12 @@
         @click="selecionarPedido(pedido)"
       >
         <span :class="pedido.icon_class"></span>
-        <span>{{ pedido.cod_pedido }} - {{ pedido.tip_status }}</span>
+        <span>Pedido número {{ pedido.cod_pedido }} - {{ pedido.tip_status }}</span>
       </div>
     </div>
 
     <div v-if="pedidoSelecionado" class="pedido-detalhes">
-      <h2>Pedido {{ pedidoSelecionado.cod_pedido }}</h2>
+      <h2>Pedido número {{ pedidoSelecionado.cod_pedido }}</h2>
       <form @submit.prevent="registrarEntrega">
         <div>
           <label for="dataEntrega">Data de Entrega:</label>
@@ -25,8 +25,24 @@
           <input type="text" v-model="endereco" required />
         </div>
         <div>
+          <label for="codCidade">Código da Cidade:</label>
+          <input type="number" v-model="codCidade" required />
+        </div>
+        <div>
+          <label for="codBairro">Código do Bairro:</label>
+          <input type="number" v-model="codBairro" required />
+        </div>
+        <div>
+          <label for="codLocalidade">Código da Localidade:</label>
+          <input type="number" v-model="codLocalidade" required />
+        </div>
+        <div>
+          <label for="codFuncionario">Código do Funcionário:</label>
+          <input type="number" v-model="codFuncionario" required />
+        </div>
+        <div>
           <label for="valor">Valor:</label>
-          <input type="number" v-model="valor" required />
+          <input type="text" v-model="valor" required />
         </div>
         <div>
           <label for="metodoPagamento">Método de Pagamento:</label>
@@ -47,6 +63,7 @@
 import { getPedidos, registrarEntrega } from '@/services/api';
 import axios from 'axios'
 
+
 export default {
   data() {
     return {
@@ -54,6 +71,10 @@ export default {
       pedidoSelecionado: null,
       dataEntrega: '',
       endereco: '',
+      codCidade: '',
+      codBairro: '',
+      codLocalidade: '',
+      codFuncionario: '',
       valor: '',
       metodoPagamento: 'PIX',
     };
@@ -68,6 +89,10 @@ export default {
       this.pedidoSelecionado = pedido;
       this.dataEntrega = '';
       this.endereco = pedido.endereco || '';
+      this.codCidade = '';
+      this.codBairro = '';
+      this.codLocalidade = '';
+      this.codFuncionario = '';
       this.valor = '';
       this.metodoPagamento = 'PIX';
     },
@@ -76,11 +101,10 @@ export default {
         cod_pedido: this.pedidoSelecionado.cod_pedido,
         data_entrega: this.dataEntrega,
         endereco: this.endereco,
-        cod_entrega: 300,
-        cod_cidade: 1,
-        cod_bairro: 10,
-        cod_localidade: 100,
-        cod_funcionario: 22,
+        cod_cidade: this.codCidade,
+        cod_bairro: this.codBairro,
+        cod_localidade: this.codLocalidade,
+        cod_funcionario: this.codFuncionario,
         valor: this.valor,
         metodo_pagamento: this.metodoPagamento,
       };
